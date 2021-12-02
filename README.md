@@ -55,3 +55,42 @@ Adiciona no package. json
     },
 ```
 $ yarn dev
+
+Começando a fazer rotas, métodos HTTP
+ - GET
+ - POST
+ - PUT
+ - PATCH
+ - DELETE
+
+```
+app.get("/courses", (request, response) =>{
+    return response.json(["Curso 1","Curso 2","Curso 3"]);
+});
+
+app.post("/courses", (request, response) =>{
+    return response.json(["Curso 1","Curso 2","Curso 3", "Curso 4"]);
+});
+
+app.put("/courses/:id", (request, response) =>{
+    return response.json(["Curso 6","Curso 2","Curso 3", "Curso 4"]);
+});
+
+app.patch("/courses/:id", (request, response) =>{
+    return response.json(["Curso 6","Curso 7","Curso 3", "Curso 4"]);
+});
+
+app.delete("/courses", (request, response) =>{
+    return response.json(["Curso 6","Curso 7","Curso 3"]);
+});
+
+```
+
+ * Instala o Insomnia
+
+ (Não vou descrever aqui muito bem como usá-lo)
+
+ * Tpos de parâmetros
+ Route Params - Identificar recurso editar/deletar/buscar
+ Query Params - Paginação/Filtro
+ Body Params - Os objetos inserção/alteração (em JSON)
