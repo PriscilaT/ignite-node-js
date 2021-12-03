@@ -94,3 +94,44 @@ app.delete("/courses", (request, response) =>{
  Route Params - Identificar recurso editar/deletar/buscar
  Query Params - Paginação/Filtro
  Body Params - Os objetos inserção/alteração (em JSON)
+
+ ## Primeiro projeto FinAPI - Financeira
+
+Para criação de IDs importar a biblioteca uuid
+$ yarn add uuid
+
+Para receber no index.js e dentro da rota nomeia a variável
+
+```
+const { v4: uuidv4 } = require("uuid")
+
+const id - uuidv4();
+
+```
+
+Criando um array como os clientes, com o método push pois quero inserir dados. Caso tudo ocorra bem, ele retorna um 201.
+
+```
+const customers = [];
+
+custumers.push({
+        cpf,
+        name,
+        id,
+        statement: [],
+
+    });
+return response.status(201).send();
+
+```
+
+Então já podemos iniciar o servidor e criar uma request no insomnia
+$ yarn dev
+
+Para conseguir receber um JSON, colocamos um middleware logo após o express
+
+```
+cons app = express();
+
+app.use(express.json());
+```
