@@ -9,24 +9,56 @@ app.use(express.json());
 
 const customers = [];
 
+// Middleware
+function verifyIfExistisAccountCPF(request, response, next) {
+    const {cpf} = request.headers; 
+
+    const customer = customers.find(customer => customer.cpf === cpf)
+ 
+    if(!customer){
+        return response.status(400).json({error: "Customer not found"})
+    }
+
+    request.customer = customer;
+
+    return next();
+
+}
 
 /* Rotas */
 
-/* Criar conta */
+// Criar conta 
 
 app.post("/account", (request, response) => {
     const {cpf, name} = request.body;
-    const id = uuidv4;
 
-    custumers.push({
+    const customerAlreadyExists = customers.some(
+        (customer) =>customer.cpf === cpf
+    );
+
+    if(customerAlreadyExists){
+        response.status(400).json({error: "Customer already exists!"});
+    }
+
+    customers.push({
         cpf,
         name,
-        id,
+        id: uuidv4(),
         statement: [],
 
     });
     return response.status(201).send();
 
+});
+
+//Verificar extrato bancário 
+
+// app.use(verifyIfExistisAccountCPF);
+
+app.get("/statement", verifyIfExistisAccountCPF, (request, response) => {
+    const {customer} = request;
+    
+    return response.json(customer.statement);
 })
 
 app.listen(3333);
